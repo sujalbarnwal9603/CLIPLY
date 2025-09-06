@@ -1,12 +1,18 @@
-import { createShortUrl, redirectUrl } from "../controller/url.controller.js";
+// src/routes/url.routes.js
 import express from "express";
+import { createShortUrl, redirectUrl } from "../controller/url.controller.js";
 
-const router=express.Router();
+const router = express.Router();
 
-// API endpoint
-router.post("/shorten",createShortUrl);
+// =========================
+// API to create short URL
+// =========================
+router.post("/shorten", createShortUrl);
 
-// Redirect endpoint
-router.get("/:shortCode",redirectUrl);
+// =========================
+// Redirect + Analytics
+// Example: http://localhost:8000/abc123
+// =========================
+router.get("/:shortCode", redirectUrl);
 
 export default router;
