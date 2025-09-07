@@ -2,6 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import urlRoutes from "./routes/url.routes.js"
+import urlAnalyticsRoutes from "./routes/urlAnalytics.routes.js";
+
+
 
 const app = express();
 
@@ -20,6 +23,9 @@ app.use(cookieParser());
 app.use('/api/url',urlRoutes);
 
 app.use("/",urlRoutes);
+
+app.use("/api/analytics", urlAnalyticsRoutes);
+
 
 
 export default app;
