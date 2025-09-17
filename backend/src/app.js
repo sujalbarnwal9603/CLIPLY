@@ -22,7 +22,6 @@ app.use(cookieParser());
 
 app.use('/api/url',urlRoutes);
 
-app.use("/",urlRoutes);
 
 app.use("/api/analytics", urlAnalyticsRoutes);
 
