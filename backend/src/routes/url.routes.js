@@ -1,12 +1,12 @@
 // src/routes/url.routes.js
 import express from "express";
 import { createShortUrl, redirectUrl } from "../controller/url.controller.js";
-
+const router = express.Router();
 console.log("✅ url.routes.js loaded");
 router.get("/test", (req, res) => res.json({ ok: true }));
 
 
-const router = express.Router();
+
 
 // =========================
 // API to create short URL
