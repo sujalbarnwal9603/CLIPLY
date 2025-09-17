@@ -3,6 +3,7 @@ import express from "express";
 import { createShortUrl, redirectUrl } from "../controller/url.controller.js";
 
 console.log("✅ url.routes.js loaded");
+router.get("/test", (req, res) => res.json({ ok: true }));
 
 
 const router = express.Router();
