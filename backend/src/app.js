@@ -29,5 +29,7 @@ app.use("/api/analytics", urlAnalyticsRoutes);
 // For redirecting short codes (bit.ly style)
 // Example: https://cliply-backend.onrender.com/abc12345
 app.use("/", urlRoutes);
+console.log("✅ URL routes mounted at /api/url");
+
 
 export default app;

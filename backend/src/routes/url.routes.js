@@ -2,6 +2,9 @@
 import express from "express";
 import { createShortUrl, redirectUrl } from "../controller/url.controller.js";
 
+console.log("✅ url.routes.js loaded");
+
+
 const router = express.Router();
 
 // =========================
