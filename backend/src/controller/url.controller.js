@@ -1,13 +1,11 @@
 import { nanoid } from "nanoid";
 import QRCode from "qrcode";
 import Url from "../model/url.model.js";
+import UrlAnalytics from "../model/urlAnalytics.model.js"; // ✅ use Mongo directly
 import AsyncHandler from "../utils/AsyncHandler.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import ApiError from "../utils/ApiError.js";
 import bcrypt from "bcryptjs";
-
-// 🔹 Use your queue
-import { urlAnalyticssQueue } from "../queues/urlAnalytics.queue.js";
 import useragent from "useragent";
 import geoip from "geoip-lite";
 
@@ -16,8 +14,6 @@ import geoip from "geoip-lite";
 // =============================
 const createShortUrl = AsyncHandler(async (req, res) => {
   const { longUrl, expiry, password } = req.body;
-  console.log(req.params);
-  console.log(req.body);
 
   if (!longUrl) {
     throw new ApiError(400, "Long URL is required");
@@ -54,8 +50,6 @@ const createShortUrl = AsyncHandler(async (req, res) => {
 // =============================
 const redirectUrl = AsyncHandler(async (req, res) => {
   const { shortCode } = req.params;
-  console.log(req.params);
-  console.log(req.body);
 
   const url = await Url.findOne({ shortCode });
   if (!url) {
@@ -70,16 +64,15 @@ const redirectUrl = AsyncHandler(async (req, res) => {
   url.clicks += 1;
   await url.save();
 
-  // 🔹 Collect analytics
+  // 🔹 Collect analytics & save directly to Mongo
   const ip = req.ip;
   const agent = useragent.parse(req.headers["user-agent"]);
   const location = geoip.lookup(ip);
 
-  // 🔹 Push analytics to queue
-  await urlAnalyticssQueue.add("track-click", {
+  await UrlAnalytics.create({
     shortCode,
     ip,
-    agent: agent.toString(),
+    userAgent: agent.toString(),
     location,
     timestamp: new Date(),
   });
