@@ -2,3 +2,7 @@ backend/node_modules
 backend/.env
 frontend/node_modules
 frontend/.env
+backendw/node_modules
+backendw/.env
+frontendw/node_modules
+frontendw/.env
